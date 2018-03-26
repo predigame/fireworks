@@ -1,8 +1,27 @@
-Fireworks!
-===========
-Here's a relatively simple and fun Predigame example that highlights image sprites, callbacks, and sound effects.
+# Fireworks!
 
-To get started, let's create a file `fireworks.py` and directories `images` and `sounds` for our firework images and sound effects. Our example as all these files and directories pre-populated. 
+A relatively simple and fun Predigame example that highlights image sprites, callbacks, and sound effects.
+
+## Prerequisites
+You'll need to have the Predigame platform installed, a trusty text editor handy, and the command prompt (or terminal) open to complete these examples. Visit [http://predigame.io](http://predigame.io) for installation instructions.
+
+## Download Existing Game (Optional)
+We have a version of this game already done and ready to go. Just run the following command:
+
+```
+pred pull fireworks
+```
+
+Then read the rest of the tutorial and follow along.
+
+## Getting Started
+To get things started, we're going to create a new Predigame game. This can be done by typing the following the command in the terminal:
+
+```
+pred new fireworks
+```
+
+Now in the text editor, find and open the file `fireworks/game.py`. Now let's get started!
 
 For the code, we'll start by defining our screen dimensions (30 x 20 grid cells) and window title:
 
@@ -59,14 +78,14 @@ callback(launch, 1)
 Now let's give it a test run!
 
 ```
-my_machine$ pred fireworks.py
+pred game.py
 ```
 
 You'll notice that fireworks launch and sound effects are playing, but there is *no explosion*! That's due to this line:
 ```python
         s.speed(15).move_to(p, callback=s.destroy)
 ```
-Once the yellow circle sprite moves to point `p` the callback `s.destroy` is invoked. As the name implies, that simply destroys the sprite. 
+Once the yellow circle sprite moves to point `p` the callback `s.destroy` is invoked. As the name implies, that simply destroys the sprite.
 
 Now let's handle the explosion. We'll define a function to handle that effect:
 
@@ -80,12 +99,11 @@ def explode(s):
         # make the image pulse (get big), destroy between 0.1 and 4 seconds
         img.pulse(time=4, size=10).destruct(rand(0.1,4))
 ```
-We currently have five fireworks images in our images directory:
+In our example, we currently have five fireworks images in our `images/` directory:
 ```
-my_machine$ ls images/
 fireworks-1.png fireworks-2.png fireworks-3.png fireworks-4.png fireworks-5.png
 ```
-The `randint(1,5)` line simply picks a number between 1 and 5 at random. The image will initially render at roughly sized at one half a grid cell. The image will slowly pulse with a four second interval. Note that the image will `destruct` between 0.1 and 4 seconds, so this basically means the firework will expand and never contract.
+Go ahead a find some fireworks of your own. Transparent images always work best. You'll want to label them similar to how we did so it's easy to randomly pick one of the images. The `randint(1,5)` line simply picks a number between 1 and 5 at random. The image will initially render at roughly sized at one half a grid cell. The image will slowly pulse with a four second interval. Note that the image will `destruct` between 0.1 and 4 seconds, so this basically means the firework will expand and never contract.
 
 With the explosion defined, we'll now want to go back and reset the yellow sprite callback to use our new `explode` function:
 ```python
@@ -93,6 +111,7 @@ With the explosion defined, we'll now want to go back and reset the yellow sprit
 ```
 
 Here's the completed version (without comments):
+
 ```python
 WIDTH = 30
 HEIGHT = 20
@@ -118,5 +137,5 @@ callback(launch, 1)
 
 Save your changes and enjoy the show!
 ```
-my_machine$ pred fireworks.py
+pred game.py
 ```
